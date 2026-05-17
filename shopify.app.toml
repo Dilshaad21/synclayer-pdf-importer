@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "167b3fc3f2283b75e1b97c46e86dc0e2"
-application_url = "https://example.com"
+application_url = "https://synclayer-pdf-importer-git-main-dilshaad-s-projects.vercel.app"
 embedded = true
 name = "synclayer-pdf-importer"
 
@@ -45,8 +45,11 @@ api_version = "2026-07"
   topics = [ "app/scopes_update" ]
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://synclayer-pdf-importer-git-main-dilshaad-s-projects.vercel.app/auth/callback",
+  "https://synclayer-pdf-importer-git-main-dilshaad-s-projects.vercel.app/auth/shopify/callback",
+  "https://synclayer-pdf-importer-git-main-dilshaad-s-projects.vercel.app/api/auth/callback"
+]
 
 [build]
-include_config_on_deploy = true
 automatically_update_urls_on_dev = true
