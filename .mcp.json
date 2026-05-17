@@ -11,6 +11,14 @@
     "supabase": {
       "type": "http",
       "url": "https://mcp.supabase.com/mcp?project_ref=hipiagqtquwgcyewhwpf"
+    },
+    "vercel": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@vercel/mcp-server"
+      ],
+      "env": {}
     }
   }
 }
