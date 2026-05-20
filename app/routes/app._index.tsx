@@ -7,7 +7,7 @@ import type {
 import { useFetcher } from "react-router";
 import OpenAI from "openai";
 import { boundary } from "@shopify/shopify-app-react-router/server";
-import { authenticate } from "../shopify.server";
+import { authenticate, PREMIUM_PLAN } from "../shopify.server";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -47,7 +47,15 @@ function isParseError(
 // ─── Loader ──────────────────────────────────────────────────────────────────
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  await authenticate.admin(request);
+  // billing types narrow to `never` due to a pre-existing dual shopify-api package
+  // version conflict in PrismaSessionStorage — safe to cast, runtime is correct.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { billing } = (await authenticate.admin(request)) as any;
+  await billing.require({
+    plans: [PREMIUM_PLAN],
+    isTest: true,
+    onFailure: async () => billing.request({ plan: PREMIUM_PLAN, isTest: true }),
+  });
   return null;
 };
 
